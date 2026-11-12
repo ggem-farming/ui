@@ -1,10 +1,15 @@
+import { TooltipProvider } from '@ggem/ui';
 import type { Decorator, Preview } from '@storybook/react-vite';
 import './preview.css';
 
 const withTheme: Decorator = (Story, context) => {
   const theme = context.globals.theme === 'dark' ? 'dark' : 'light';
   document.documentElement.dataset.theme = theme;
-  return <Story />;
+  return (
+    <TooltipProvider>
+      <Story />
+    </TooltipProvider>
+  );
 };
 
 const preview: Preview = {

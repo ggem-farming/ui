@@ -7,7 +7,7 @@ export const popupSurface = [
 ].join(' ');
 
 export const popupItem = [
-  'flex cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-base outline-none select-none',
+  'relative flex cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-base outline-none select-none',
   'data-highlighted:bg-surface-hover data-disabled:cursor-not-allowed data-disabled:opacity-50',
   'pointer-coarse:min-h-11 pointer-coarse:text-lg',
 ].join(' ');

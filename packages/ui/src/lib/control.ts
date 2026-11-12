@@ -8,8 +8,10 @@ export const controlFrame = [
 ].join(' ');
 
 /** Focus ring for a control that is itself focusable. */
+// No `outline-none` here: in Tailwind v4 it sets outline-style to none, which `focus:outline-2`
+// does not undo, so the focus ring would never show.
 export const controlFocus =
-  'outline-none focus:outline-2 focus:-outline-offset-1 focus:outline-focus data-invalid:focus:outline-danger';
+  'focus:outline-2 focus:-outline-offset-1 focus:outline-focus data-invalid:focus:outline-danger';
 
 /** Single-line height: 32px, 44px on touch screens. */
 export const controlHeight = 'h-8 pointer-coarse:h-11';

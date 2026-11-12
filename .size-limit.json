@@ -28,11 +28,39 @@
     "limit": "54 kB"
   },
   {
+    "name": "@ggem/ui IconButton (with tooltip)",
+    "path": "packages/ui/dist/index.js",
+    "import": "{ IconButton }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "37 kB"
+  },
+  {
+    "name": "@ggem/ui Dialog",
+    "path": "packages/ui/dist/index.js",
+    "import": "{ Dialog, DialogContent, DialogTitle, DialogTrigger }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "46 kB"
+  },
+  {
+    "name": "@ggem/ui ConfirmDialog",
+    "path": "packages/ui/dist/index.js",
+    "import": "{ ConfirmDialog }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "47 kB"
+  },
+  {
+    "name": "@ggem/ui Menu",
+    "path": "packages/ui/dist/index.js",
+    "import": "{ Menu, MenuTrigger, MenuContent, MenuItem }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "52 kB"
+  },
+  {
     "name": "@ggem/ui all exports",
     "path": "packages/ui/dist/index.js",
     "import": "*",
     "ignore": ["react", "react-dom", "react/jsx-runtime"],
-    "limit": "70 kB"
+    "limit": "90 kB"
   },
   {
     "name": "@ggem/tokens",
