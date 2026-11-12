@@ -1,0 +1,55 @@
+{
+  "name": "ggem-ui-workspace",
+  "private": true,
+  "type": "module",
+  "description": "GGEM UI kit: design tokens and React components built on Base UI and Tailwind CSS",
+  "license": "MIT",
+  "workspaces": [
+    "packages/tokens",
+    "packages/ui",
+    "apps/storybook"
+  ],
+  "scripts": {
+    "build": "npm run build -w @ggem/tokens && npm run build -w @ggem/ui",
+    "lint": "eslint .",
+    "format:check": "prettier --check .",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "vitest run",
+    "size": "size-limit",
+    "publint": "publint packages/tokens && publint packages/ui",
+    "check": "npm run build && npm run lint && npm run format:check && npm run typecheck && npm test && npm run publint && npm run size",
+    "storybook": "npm run build -w @ggem/tokens && npm run dev -w @ggem/storybook",
+    "build-storybook": "npm run build && npm run build -w @ggem/storybook",
+    "changeset": "changeset",
+    "release": "npm run build && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3",
+    "@eslint/js": "^9.39.0",
+    "@size-limit/preset-small-lib": "^14.3.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.10",
+    "@types/node": "^24.19.1",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.7",
+    "axe-core": "^4.14.0",
+    "eslint": "^9.39.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "jsdom": "^31.0.0",
+    "prettier": "^3.10.0",
+    "publint": "^0.3.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "size-limit": "^14.3.0",
+    "tsdown": "^0.23.7",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.2",
+    "vitest": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=24 <25"
+  }
+}

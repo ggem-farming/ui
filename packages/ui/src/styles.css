@@ -1,0 +1,32 @@
+/*
+ * GGEM UI styles. In the app's main CSS file:
+ *   @import "tailwindcss";
+ *   @import "@ggem/ui/styles.css";
+ *   @import "@ggem/ui/fonts.css";  (optional: self-hosted Archivo, Source Sans 3, JetBrains Mono)
+ */
+@import '@ggem/tokens/theme.css';
+
+/* Generate the utilities used by the kit's components. */
+@source './';
+
+@layer base {
+  /* Keep the root font size at the browser default so rem-based tokens keep their values. */
+  :where(html) {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  :where(body) {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    font-feature-settings: 'cv11', 'ss03';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  :where(:focus-visible) {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+}

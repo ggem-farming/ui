@@ -1,0 +1,22 @@
+[
+  {
+    "name": "@ggem/ui Button (tree-shaking check)",
+    "path": "packages/ui/dist/index.js",
+    "import": "{ Button }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "12 kB"
+  },
+  {
+    "name": "@ggem/ui all exports",
+    "path": "packages/ui/dist/index.js",
+    "import": "*",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "12 kB"
+  },
+  {
+    "name": "@ggem/tokens",
+    "path": "packages/tokens/dist/index.js",
+    "import": "*",
+    "limit": "3 kB"
+  }
+]

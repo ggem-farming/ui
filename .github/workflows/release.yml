@@ -1,0 +1,35 @@
+# Opens a "Version packages" PR from pending changesets; merging it publishes to npm.
+# Publishing uses npm trusted publishing (OIDC): configure it for @ggem/tokens and @ggem/ui on
+# npmjs.com with this repository and workflow file. No npm token is stored in the repository.
+name: Release
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+concurrency:
+  group: release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run check
+      - uses: changesets/action@v1
+        with:
+          version: npx changeset version
+          publish: npm run release
+          title: Version packages
+          commit: Version packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
