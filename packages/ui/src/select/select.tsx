@@ -47,7 +47,9 @@ export function Select<Value>({
         </BaseSelect.Label>
       )}
       <BaseSelect.Trigger
-        aria-label={ariaLabel}
+        // Base UI links the label by aria-labelledby; a plain-text label is also set as aria-label
+        // so the trigger is named even where that reference doesn't resolve.
+        aria-label={ariaLabel ?? (typeof label === 'string' ? label : undefined)}
         className={cn(
           controlFrame,
           controlHeight,

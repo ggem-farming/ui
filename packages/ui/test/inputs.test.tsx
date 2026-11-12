@@ -223,6 +223,12 @@ describe('Select', () => {
     });
   });
 
+  it('names the trigger with exactly its label', () => {
+    render(<Select label="Priority" options={HUBS} placeholder="Any" />);
+    const trigger = screen.getByRole('combobox', { name: 'Priority' });
+    expect(trigger).toHaveAttribute('aria-label', 'Priority');
+  });
+
   it('shows the placeholder when empty', () => {
     render(<Select aria-label="Hub" options={HUBS} placeholder="All hubs" />);
     expect(screen.getByRole('combobox', { name: 'Hub' })).toHaveTextContent('All hubs');

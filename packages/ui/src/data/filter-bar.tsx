@@ -167,7 +167,9 @@ export function FilterBar({
         {search && <div className="w-full @md:w-64">{search}</div>}
         {filters && (
           <>
-            <div className="hidden flex-wrap items-center gap-2 @3xl:flex">{filters}</div>
+            <div className="hidden flex-wrap items-center gap-2 @3xl:flex [&_[role=combobox]]:w-auto [&>div:has(>input[role=combobox])]:w-56 [&>button[role=combobox]]:min-w-36">
+              {filters}
+            </div>
             <Dialog>
               <DialogContent placement="right" size="sm">
                 <DialogHeader>
