@@ -140,3 +140,27 @@ export {
   type RecordHeaderProps,
   type RecordLayoutProps,
 } from './layout/record.tsx';
+export {
+  createDataTableColumnHelper,
+  DataTable,
+  dataTableFeatures,
+  type DataTableColumn,
+  type DataTableFeatures,
+  type DataTableProps,
+  type DataTableRow,
+  type PaginationState,
+  type RowSelectionState,
+  type SortingState,
+  type VisibilityState,
+} from './data/data-table.tsx';
+export { Pagination, type PaginationProps } from './data/pagination.tsx';
+export {
+  ColumnsMenu,
+  FilterBar,
+  FilterChip,
+  SearchInput,
+  type ColumnsMenuProps,
+  type FilterBarProps,
+  type FilterChipProps,
+  type SearchInputProps,
+} from './data/filter-bar.tsx';

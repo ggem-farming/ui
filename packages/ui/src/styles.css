@@ -30,3 +30,13 @@
     outline-offset: 2px;
   }
 }
+
+/* Indeterminate progress line used while tables refetch. */
+@keyframes ggem-progress {
+  from {
+    translate: -100% 0;
+  }
+  to {
+    translate: 300% 0;
+  }
+}

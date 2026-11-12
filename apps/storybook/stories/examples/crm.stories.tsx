@@ -13,16 +13,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  Checkbox,
+  createDataTableColumnHelper,
+  DataTable,
+  FilterBar,
+  FilterChip,
+  SearchInput,
   DetailList,
   EmptyState,
   IconButton,
-  Input,
-  Menu,
-  MenuContent,
-  MenuItem,
-  MenuSeparator,
-  MenuTrigger,
   Page,
   PageBar,
   PageHeader,
@@ -56,16 +54,14 @@ import {
   MoreHorizontal,
   Package,
   Pencil,
-  Phone,
   Plus,
   Search,
   Settings,
   Sprout,
   Store,
-  Trash2,
   Users,
 } from 'lucide-react';
-import { useState, type MouseEvent, type ReactNode } from 'react';
+import { useMemo, useState, type MouseEvent, type ReactNode } from 'react';
 
 type Route = { page: 'home' } | { page: 'farmers' } | { page: 'farmer'; id: number };
 
@@ -335,7 +331,59 @@ function HomePage() {
   );
 }
 
+const farmerColumns = (navigate: (r: Route) => void) => {
+  const col = createDataTableColumnHelper<(typeof FARMERS)[number]>();
+  return col.columns([
+    col.accessor('name', {
+      header: 'Farmer',
+      meta: { card: 'title' },
+      cell: (info) => (
+        <a
+          href={`/farmers/${String(info.row.original.id)}`}
+          onClick={go(navigate, { page: 'farmer', id: info.row.original.id })}
+          className="inline-flex items-center gap-2.5 font-medium hover:underline"
+        >
+          <Avatar name={info.getValue()} size="sm" />
+          {info.getValue()}
+        </a>
+      ),
+    }),
+    col.accessor('phone', { header: 'Phone', enableSorting: false, meta: { priority: 'low' } }),
+    col.accessor('hub', { header: 'Hub', meta: { card: 'subtitle' } }),
+    col.accessor((f) => f.status.label, {
+      id: 'status',
+      header: 'Status',
+      meta: { card: 'trailing' },
+      cell: (info) => (
+        <Badge variant="outline" tone={info.row.original.status.tone}>
+          {info.getValue()}
+        </Badge>
+      ),
+    }),
+    col.accessor('balance', {
+      header: 'Balance',
+      meta: { align: 'right', card: 'subtitle' },
+      cell: (info) => (
+        <span className={info.getValue() < 0 ? 'font-medium text-on-danger-soft' : undefined}>
+          {mwk(info.getValue())}
+        </span>
+      ),
+    }),
+  ]);
+};
+
 function FarmersPage({ navigate }: { navigate: (r: Route) => void }) {
+  const [query, setQuery] = useState('');
+  const [hub, setHub] = useState<string | null>(null);
+  const columns = useMemo(() => farmerColumns(navigate), [navigate]);
+  const rows = useMemo(
+    () =>
+      FARMERS.filter(
+        (f) =>
+          (!query || f.name.toLowerCase().includes(query.toLowerCase())) && (!hub || f.hub === hub)
+      ),
+    [query, hub]
+  );
   return (
     <>
       <PageBar
@@ -367,116 +415,53 @@ function FarmersPage({ navigate }: { navigate: (r: Route) => void }) {
             </TabsList>
           </div>
         </Tabs>
-        <div className="flex flex-wrap items-center gap-2 px-3 py-2.5 lg:px-5">
-          <Input
-            aria-label="Search farmers"
-            placeholder="Search name, phone or ID"
-            className="h-7 w-full sm:w-60"
-          />
-          <Select
-            aria-label="Hub"
-            options={HUBS.map((h) => ({ value: h, label: h }))}
-            placeholder="All hubs"
-            className="h-7 w-36"
-          />
-        </div>
-        <div className="hidden min-h-0 flex-1 overflow-auto border-t border-border md:block">
-          <table className="w-full text-left text-sm whitespace-nowrap">
-            <thead className="sticky top-0 z-10 bg-surface-muted text-xs text-fg-muted">
-              <tr className="border-b border-border">
-                <th className="w-10 py-2 pl-5">
-                  <Checkbox aria-label="Select all farmers" />
-                </th>
-                <th className="px-3 py-2 font-medium">Farmer</th>
-                <th className="hidden px-3 py-2 font-medium lg:table-cell">Phone</th>
-                <th className="px-3 py-2 font-medium">Hub</th>
-                <th className="px-3 py-2 font-medium">Status</th>
-                <th className="px-3 py-2 text-right font-medium">Balance</th>
-                <th className="w-12 py-2 pr-3">
-                  <span className="sr-only">Actions</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {FARMERS.map((f) => (
-                <tr key={f.id} className="border-b border-border hover:bg-surface-muted">
-                  <td className="py-2 pl-5">
-                    <Checkbox aria-label={`Select ${f.name}`} />
-                  </td>
-                  <td className="px-3 py-2">
-                    <a
-                      href={`/farmers/${String(f.id)}`}
-                      onClick={go(navigate, { page: 'farmer', id: f.id })}
-                      className="flex items-center gap-2.5 font-medium hover:underline"
-                    >
-                      <Avatar name={f.name} size="sm" />
-                      {f.name}
-                    </a>
-                  </td>
-                  <td className="hidden px-3 py-2 text-fg-muted tabular-nums lg:table-cell">
-                    {f.phone}
-                  </td>
-                  <td className="px-3 py-2">{f.hub}</td>
-                  <td className="px-3 py-2">
-                    <Badge variant="outline" tone={f.status.tone}>
-                      {f.status.label}
-                    </Badge>
-                  </td>
-                  <td
-                    className={`px-3 py-2 text-right tabular-nums ${f.balance < 0 ? 'font-medium text-on-danger-soft' : ''}`}
-                  >
-                    {mwk(f.balance)}
-                  </td>
-                  <td className="py-1 pr-3 text-right">
-                    <Menu>
-                      <MenuTrigger
-                        render={
-                          <IconButton label={`Actions for ${f.name}`} size="sm">
-                            <MoreHorizontal />
-                          </IconButton>
-                        }
-                      />
-                      <MenuContent align="end">
-                        <MenuItem>
-                          <Pencil /> Edit
-                        </MenuItem>
-                        <MenuItem>
-                          <Phone /> Call
-                        </MenuItem>
-                        <MenuSeparator />
-                        <MenuItem tone="danger">
-                          <Trash2 /> Delete farmer
-                        </MenuItem>
-                      </MenuContent>
-                    </Menu>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <ul className="divide-y divide-border border-t border-border md:hidden">
-          {FARMERS.slice(0, 8).map((f) => (
-            <li key={f.id}>
-              <a
-                href={`/farmers/${String(f.id)}`}
-                onClick={go(navigate, { page: 'farmer', id: f.id })}
-                className="flex items-center gap-3 px-3 py-3"
-              >
-                <Avatar name={f.name} size="lg" />
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate font-medium">{f.name}</span>
-                  <span className="block truncate text-sm text-fg-muted">
-                    {f.hub} · {mwk(f.balance)}
-                  </span>
-                </span>
-                <Badge variant="outline" tone={f.status.tone}>
-                  {f.status.label}
-                </Badge>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <FilterBar
+          search={
+            <SearchInput
+              aria-label="Search farmers"
+              placeholder="Search name, phone or ID"
+              value={query}
+              onValueChange={setQuery}
+            />
+          }
+          filters={
+            <Select
+              aria-label="Hub"
+              placeholder="All hubs"
+              value={hub}
+              onValueChange={setHub}
+              options={HUBS.map((h) => ({ value: h, label: h }))}
+              className="h-8 w-40"
+            />
+          }
+          activeCount={hub ? 1 : 0}
+          chips={
+            hub ? (
+              <FilterChip
+                label="Hub"
+                value={hub}
+                onRemove={() => {
+                  setHub(null);
+                }}
+              />
+            ) : undefined
+          }
+          onClearAll={() => {
+            setHub(null);
+            setQuery('');
+          }}
+        />
+        <DataTable
+          aria-label="Farmers"
+          columns={columns}
+          data={rows}
+          getRowId={(f) => String(f.id)}
+          getRowLabel={(f) => f.name}
+          enableRowSelection
+          onRowClick={(f) => {
+            navigate({ page: 'farmer', id: f.id });
+          }}
+        />
       </Page>
     </>
   );
