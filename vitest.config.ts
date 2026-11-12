@@ -12,6 +12,8 @@ export default defineConfig({
           root: 'packages/ui',
           environment: 'jsdom',
           setupFiles: ['./test/setup.ts'],
+          // axe scans of whole components are slow on a busy machine; the default 5s is too tight.
+          testTimeout: 15000,
         },
       },
     ],
