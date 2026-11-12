@@ -221,3 +221,11 @@ export {
   type BreadcrumbItemProps,
   type BreadcrumbsProps,
 } from './breadcrumbs/breadcrumbs.tsx';
+export {
+  CommandPalette,
+  useCommandShortcut,
+  type CommandGroup,
+  type CommandItem,
+  type CommandPaletteProps,
+} from './command/command-palette.tsx';
+export { Kbd } from './command/kbd.tsx';

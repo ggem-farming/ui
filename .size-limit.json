@@ -126,6 +126,13 @@
     "ignore": ["react", "react-dom", "react/jsx-runtime"]
   },
   {
+    "name": "@ggem/ui CommandPalette and Kbd",
+    "path": "packages/ui/dist/index.js",
+    "import": "{ CommandPalette, Kbd, useCommandShortcut }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "62 kB"
+  },
+  {
     "name": "@ggem/ui all exports",
     "path": "packages/ui/dist/index.js",
     "import": "*",
