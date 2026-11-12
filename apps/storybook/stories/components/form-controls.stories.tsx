@@ -3,6 +3,11 @@ import {
   Checkbox,
   CheckboxGroup,
   Combobox,
+  DateInput,
+  DateRangeInput,
+  FileInput,
+  MultiCombobox,
+  type DateRange,
   Field,
   FieldDescription,
   FieldError,
@@ -276,4 +281,44 @@ function RegisterFarmerForm() {
 export const RegisterFarmer: Story = {
   name: 'Example: register farmer',
   render: () => <RegisterFarmerForm />,
+};
+
+const CROPS = [
+  { value: 'maize', label: 'Maize' },
+  { value: 'soy', label: 'Soya beans' },
+  { value: 'gnut', label: 'Groundnuts' },
+  { value: 'chilli', label: 'Chillies' },
+  { value: 'sunflower', label: 'Sunflower' },
+];
+
+export const DatesFilesAndMultiSelect: Story = {
+  render: function Render() {
+    const [range, setRange] = useState<DateRange>({ from: '2026-03-01', to: null });
+    return (
+      <Form className="space-y-5">
+        <Field>
+          <FieldLabel>Delivery date</FieldLabel>
+          <DateInput defaultValue="2026-03-14" />
+        </Field>
+        <Field>
+          <FieldLabel>Booking dates</FieldLabel>
+          <DateRangeInput aria-label="Booking dates" value={range} onValueChange={setRange} />
+        </Field>
+        <Field>
+          <FieldLabel>Crops grown</FieldLabel>
+          <MultiCombobox
+            options={CROPS}
+            defaultValue={['maize', 'soy']}
+            placeholder="Search crops"
+          />
+        </Field>
+        <FileInput
+          label="Payout file"
+          accept=".csv,.xlsx"
+          maxSize={5 * 1024 * 1024}
+          hint="CSV or Excel, up to 5 MB"
+        />
+      </Form>
+    );
+  },
 };

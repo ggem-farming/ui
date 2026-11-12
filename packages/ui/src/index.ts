@@ -29,7 +29,22 @@ export {
 export { Radio, RadioGroup, type RadioGroupProps, type RadioProps } from './radio/radio.tsx';
 export { Switch, type SwitchProps } from './switch/switch.tsx';
 export { Select, type SelectOption, type SelectProps } from './select/select.tsx';
-export { Combobox, type ComboboxOption, type ComboboxProps } from './combobox/combobox.tsx';
+export {
+  Combobox,
+  MultiCombobox,
+  type ComboboxOption,
+  type ComboboxProps,
+  type MultiComboboxProps,
+} from './combobox/combobox.tsx';
+export {
+  DateInput,
+  DateRangeInput,
+  type DateInputProps,
+  type DateRange,
+  type DateRangeInputProps,
+  type IsoDate,
+} from './date/date-input.tsx';
+export { FileInput, formatFileSize, type FileInputProps } from './file-input/file-input.tsx';
 export {
   Dialog,
   DialogBody,
@@ -164,3 +179,45 @@ export {
   type FilterChipProps,
   type SearchInputProps,
 } from './data/filter-bar.tsx';
+export { Alert, type AlertProps, type AlertTone } from './feedback/alert.tsx';
+export {
+  ProgressBar,
+  Spinner,
+  type ProgressBarProps,
+  type SpinnerProps,
+} from './feedback/progress.tsx';
+export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+  type TableCellProps,
+  type TableHeadProps,
+  type TableProps,
+} from './table/table.tsx';
+export {
+  Accordion,
+  AccordionItem,
+  AccordionPanel,
+  AccordionTrigger,
+  Collapsible,
+  CollapsiblePanel,
+  CollapsibleTrigger,
+  type AccordionItemProps,
+  type AccordionPanelProps,
+  type AccordionProps,
+  type AccordionTriggerProps,
+  type CollapsiblePanelProps,
+  type CollapsibleProps,
+  type CollapsibleTriggerProps,
+} from './accordion/accordion.tsx';
+export {
+  BreadcrumbItem,
+  Breadcrumbs,
+  type BreadcrumbItemProps,
+  type BreadcrumbsProps,
+} from './breadcrumbs/breadcrumbs.tsx';

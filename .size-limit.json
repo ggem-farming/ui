@@ -91,11 +91,46 @@
     "limit": "60 kB"
   },
   {
+    "name": "@ggem/ui feedback (Alert, ProgressBar, Spinner)",
+    "import": "{ Alert, ProgressBar, Spinner }",
+    "limit": "14 kB",
+    "path": "packages/ui/dist/index.js",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"]
+  },
+  {
+    "name": "@ggem/ui Table and Breadcrumbs",
+    "import": "{ Table, TableHeader, TableBody, TableRow, TableHead, TableCell, Breadcrumbs, BreadcrumbItem }",
+    "limit": "12 kB",
+    "path": "packages/ui/dist/index.js",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"]
+  },
+  {
+    "name": "@ggem/ui Accordion and Collapsible",
+    "import": "{ Accordion, AccordionItem, AccordionTrigger, AccordionPanel, Collapsible, CollapsibleTrigger, CollapsiblePanel }",
+    "limit": "19 kB",
+    "path": "packages/ui/dist/index.js",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"]
+  },
+  {
+    "name": "@ggem/ui DateInput, DateRangeInput, FileInput",
+    "import": "{ DateInput, DateRangeInput, FileInput }",
+    "limit": "16 kB",
+    "path": "packages/ui/dist/index.js",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"]
+  },
+  {
+    "name": "@ggem/ui MultiCombobox",
+    "import": "{ MultiCombobox }",
+    "limit": "56 kB",
+    "path": "packages/ui/dist/index.js",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"]
+  },
+  {
     "name": "@ggem/ui all exports",
     "path": "packages/ui/dist/index.js",
     "import": "*",
     "ignore": ["react", "react-dom", "react/jsx-runtime"],
-    "limit": "110 kB"
+    "limit": "122 kB"
   },
   {
     "name": "@ggem/tokens",
