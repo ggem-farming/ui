@@ -1,7 +1,8 @@
+import { Collapsible as BaseCollapsible } from '@base-ui/react/collapsible';
 import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
-import { Menu } from 'lucide-react';
+import { ChevronRight, Menu } from 'lucide-react';
 import {
   createContext,
   useCallback,
@@ -180,6 +181,13 @@ export function SidebarSection({ label, className, children, ...props }: Sidebar
   );
 }
 
+const sidebarRow = cn(
+  'flex h-8 items-center gap-2.5 rounded-md border border-transparent px-2 text-sm font-medium text-fg-muted',
+  'hover:bg-surface-hover hover:text-fg pointer-coarse:h-11',
+  'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focus',
+  '[&_svg]:size-4 [&_svg]:shrink-0'
+);
+
 export interface SidebarLinkProps extends useRender.ComponentProps<'a'> {
   /** A 16px line icon. */
   icon?: ReactNode;
@@ -211,11 +219,8 @@ export function SidebarLink({
         'aria-current': active ? 'page' : undefined,
         onClick: () => shell?.closeNav(),
         className: cn(
-          'flex h-8 items-center gap-2.5 rounded-md border border-transparent px-2 text-sm font-medium text-fg-muted',
-          'hover:bg-surface-hover hover:text-fg pointer-coarse:h-11',
-          'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focus',
+          sidebarRow,
           'aria-[current=page]:border-border aria-[current=page]:bg-surface aria-[current=page]:text-fg aria-[current=page]:shadow-xs',
-          '[&_svg]:size-4 [&_svg]:shrink-0',
           typeof className === 'string' ? className : undefined
         ),
         children: (
@@ -231,6 +236,70 @@ export function SidebarLink({
       props
     ),
   });
+}
+
+export interface SidebarSubmenuProps {
+  /** The row's name, e.g. "Call centre". */
+  label: ReactNode;
+  /** A 16px line icon. */
+  icon?: ReactNode;
+  /**
+   * The current page is one of its links. It opens when this becomes true, and while closed its
+   * row is marked so the user can still see where they are.
+   */
+  active?: boolean;
+  /** Open on first render. Defaults to `active`. */
+  defaultOpen?: boolean;
+  /** `SidebarLink`s, usually without icons. */
+  children: ReactNode;
+  className?: string;
+}
+
+/**
+ * A row that shows and hides related links, so a long sidebar stays short. Opens by itself when
+ * the user navigates to one of its links; the user can close it again.
+ */
+export function SidebarSubmenu({
+  label,
+  icon,
+  active = false,
+  defaultOpen,
+  children,
+  className,
+}: SidebarSubmenuProps) {
+  const [open, setOpen] = useState(defaultOpen ?? active);
+  const [wasActive, setWasActive] = useState(active);
+  if (active !== wasActive) {
+    setWasActive(active);
+    if (active) setOpen(true);
+  }
+  return (
+    <BaseCollapsible.Root
+      open={open}
+      onOpenChange={setOpen}
+      className={cn('flex flex-col', className)}
+    >
+      <BaseCollapsible.Trigger
+        data-current={active && !open ? '' : undefined}
+        className={cn(
+          sidebarRow,
+          'group w-full text-left data-current:bg-surface-hover data-current:text-fg'
+        )}
+      >
+        {icon}
+        <span className="min-w-0 flex-1 truncate">{label}</span>
+        <ChevronRight
+          className="text-fg-muted transition-transform duration-fast group-data-panel-open:rotate-90 motion-reduce:transition-none"
+          aria-hidden
+        />
+      </BaseCollapsible.Trigger>
+      <BaseCollapsible.Panel className="h-(--collapsible-panel-height) overflow-hidden transition-[height] duration-normal ease-standard data-ending-style:h-0 data-starting-style:h-0 motion-reduce:transition-none">
+        <div className="ml-4 flex flex-col gap-0.5 border-l border-border py-0.5 pl-2">
+          {children}
+        </div>
+      </BaseCollapsible.Panel>
+    </BaseCollapsible.Root>
+  );
 }
 
 /** Bottom of the sidebar: settings link, signed-in user. */

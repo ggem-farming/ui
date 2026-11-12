@@ -139,11 +139,13 @@ export {
   SidebarLink,
   SidebarNav,
   SidebarSection,
+  SidebarSubmenu,
   type AppShellProps,
   type PageBarProps,
   type SidebarLinkProps,
   type SidebarNavProps,
   type SidebarSectionProps,
+  type SidebarSubmenuProps,
 } from './layout/app-shell.tsx';
 export { Page, PageHeader, type PageHeaderProps, type PageProps } from './layout/page.tsx';
 export {

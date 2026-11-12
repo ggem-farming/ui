@@ -72,7 +72,7 @@
   {
     "name": "@ggem/ui layout (AppShell, Sidebar, Page, RecordLayout)",
     "path": "packages/ui/dist/index.js",
-    "import": "{ AppShell, PageBar, Sidebar, SidebarNav, SidebarSection, SidebarLink, Page, PageHeader, RecordLayout, RecordHeader, DetailList }",
+    "import": "{ AppShell, PageBar, Sidebar, SidebarNav, SidebarSection, SidebarLink, SidebarSubmenu, Page, PageHeader, RecordLayout, RecordHeader, DetailList }",
     "ignore": ["react", "react-dom", "react/jsx-runtime"],
     "limit": "48 kB"
   },

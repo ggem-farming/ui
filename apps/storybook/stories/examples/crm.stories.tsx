@@ -33,6 +33,7 @@ import {
   SidebarLink,
   SidebarNav,
   SidebarSection,
+  SidebarSubmenu,
   Stat,
   StatGroup,
   Tab,
@@ -137,14 +138,17 @@ function Nav({ route, navigate }: { route: Route; navigate: (r: Route) => void }
           </SidebarLink>
         </SidebarSection>
         <SidebarSection label="Farmers">
-          <SidebarLink
-            href="/farmers"
-            icon={<Users />}
-            active={isFarmers}
-            onClick={go(navigate, { page: 'farmers' })}
-          >
-            Farmers
-          </SidebarLink>
+          <SidebarSubmenu label="Farmers" icon={<Users />} active={isFarmers}>
+            <SidebarLink
+              href="/farmers"
+              active={isFarmers}
+              onClick={go(navigate, { page: 'farmers' })}
+            >
+              Smallholders
+            </SidebarLink>
+            <SidebarLink href="/farmers/open-market">Open market</SidebarLink>
+            <SidebarLink href="/farmers/partners">Partners</SidebarLink>
+          </SidebarSubmenu>
           <SidebarLink href="/contracts" icon={<FileText />}>
             Contracts
           </SidebarLink>

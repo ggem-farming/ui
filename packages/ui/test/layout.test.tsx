@@ -18,6 +18,7 @@ import {
   SidebarLink,
   SidebarNav,
   SidebarSection,
+  SidebarSubmenu,
 } from '../src/index.ts';
 import { axeViolations } from './axe.ts';
 
@@ -117,6 +118,49 @@ describe('AppShell and PageBar', () => {
     expect(link.className).toContain('rounded-md');
     await userEvent.click(link);
     expect(navigate).toHaveBeenCalledWith('/surveys');
+  });
+});
+
+describe('SidebarSubmenu', () => {
+  function Menu({ current }: { current: string }) {
+    const links = ['Agent workspace', 'Manager'];
+    return (
+      <SidebarNav>
+        <SidebarSubmenu label="Call centre" active={links.includes(current)}>
+          {links.map((name) => (
+            <SidebarLink key={name} href={`#${name}`} active={current === name}>
+              {name}
+            </SidebarLink>
+          ))}
+        </SidebarSubmenu>
+        <SidebarLink href="#sms" active={current === 'SMS'}>
+          SMS
+        </SidebarLink>
+      </SidebarNav>
+    );
+  }
+
+  it('starts closed off its pages and opens when the user toggles it', async () => {
+    const { container } = render(<Menu current="SMS" />);
+    const trigger = screen.getByRole('button', { name: 'Call centre' });
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.queryByRole('link', { name: 'Manager' })).not.toBeInTheDocument();
+    await userEvent.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('link', { name: 'Manager' })).toBeVisible();
+    expect(await axeViolations(container)).toEqual([]);
+  });
+
+  it('opens when the user reaches one of its pages and marks itself while closed', async () => {
+    const { rerender } = render(<Menu current="SMS" />);
+    rerender(<Menu current="Manager" />);
+    const trigger = screen.getByRole('button', { name: 'Call centre' });
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('link', { name: 'Manager' })).toHaveAttribute('aria-current', 'page');
+    expect(trigger).not.toHaveAttribute('data-current');
+    await userEvent.click(trigger);
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
+    expect(trigger).toHaveAttribute('data-current');
   });
 });
 
