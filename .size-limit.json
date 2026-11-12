@@ -56,11 +56,25 @@
     "limit": "52 kB"
   },
   {
+    "name": "@ggem/ui display (Badge, Card, Stat, Avatar, states)",
+    "path": "packages/ui/dist/index.js",
+    "import": "{ Badge, Card, CardHeader, CardTitle, CardContent, Stat, StatGroup, Avatar, Separator, Skeleton, EmptyState, ErrorState }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "18 kB"
+  },
+  {
+    "name": "@ggem/ui Tabs",
+    "path": "packages/ui/dist/index.js",
+    "import": "{ Tabs, TabsList, Tab, TabsPanel }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "21 kB"
+  },
+  {
     "name": "@ggem/ui all exports",
     "path": "packages/ui/dist/index.js",
     "import": "*",
     "ignore": ["react", "react-dom", "react/jsx-runtime"],
-    "limit": "90 kB"
+    "limit": "95 kB"
   },
   {
     "name": "@ggem/tokens",

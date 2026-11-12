@@ -363,7 +363,8 @@ function DashboardHome({ state }: { state: HomeState }) {
         )}
 
         {state === 'loading' && (
-          <div aria-busy="true" aria-label="Loading dashboard" className="space-y-5">
+          <div role="status" aria-busy="true" className="space-y-5">
+            <span className="sr-only">Loading dashboard…</span>
             <Skeleton className="h-28" />
             <div className="grid gap-5 lg:grid-cols-3">
               <Skeleton className="h-72 lg:col-span-2" />
