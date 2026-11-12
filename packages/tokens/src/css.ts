@@ -22,6 +22,7 @@ export function schemeVars(scheme: ColorScheme): [string, string][] {
     ['--color-surface', scheme.surface],
     ['--color-surface-muted', scheme.surfaceMuted],
     ['--color-surface-raised', scheme.surfaceRaised],
+    ['--color-surface-hover', scheme.surfaceHover],
     ['--color-fg', scheme.fg],
     ['--color-fg-muted', scheme.fgMuted],
     ['--color-border', scheme.border],

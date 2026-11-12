@@ -26,6 +26,8 @@ describe.each<[string, ColorScheme]>(Object.entries(colors))('%s scheme contrast
     ['fg on bg', s.fg, s.bg],
     ['fg on surface', s.fg, s.surface],
     ['fg on surfaceMuted', s.fg, s.surfaceMuted],
+    ['fg on surfaceHover', s.fg, s.surfaceHover],
+    ['fgMuted on surfaceHover', s.fgMuted, s.surfaceHover],
     ['fgMuted on bg', s.fgMuted, s.bg],
     ['fgMuted on surface', s.fgMuted, s.surface],
     ['fgMuted on surfaceMuted', s.fgMuted, s.surfaceMuted],

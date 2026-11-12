@@ -7,11 +7,32 @@
     "limit": "12 kB"
   },
   {
+    "name": "@ggem/ui form fields and toggles",
+    "path": "packages/ui/dist/index.js",
+    "import": "{ Form, Field, FieldLabel, FieldError, Input, Textarea, Checkbox, Radio, RadioGroup, Switch }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "28 kB"
+  },
+  {
+    "name": "@ggem/ui Select",
+    "path": "packages/ui/dist/index.js",
+    "import": "{ Select }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "48 kB"
+  },
+  {
+    "name": "@ggem/ui Combobox",
+    "path": "packages/ui/dist/index.js",
+    "import": "{ Combobox }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "54 kB"
+  },
+  {
     "name": "@ggem/ui all exports",
     "path": "packages/ui/dist/index.js",
     "import": "*",
     "ignore": ["react", "react-dom", "react/jsx-runtime"],
-    "limit": "12 kB"
+    "limit": "70 kB"
   },
   {
     "name": "@ggem/tokens",

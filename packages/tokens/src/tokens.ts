@@ -90,6 +90,8 @@ export interface ColorScheme {
   surfaceMuted: string;
   /** Raised overlays: menus, popovers, dialogs. */
   surfaceRaised: string;
+  /** Highlighted option or hovered control on any surface. */
+  surfaceHover: string;
   fg: string;
   fgMuted: string;
   /** Decorative dividers and card outlines. */
@@ -117,6 +119,7 @@ export const colors: { light: ColorScheme; dark: ColorScheme } = {
     surface: p.neutral[0],
     surfaceMuted: p.neutral[25],
     surfaceRaised: p.neutral[0],
+    surfaceHover: '#efeff1',
     fg: p.neutral[900],
     fgMuted: p.neutral[500],
     border: p.neutral[100],
@@ -179,6 +182,7 @@ export const colors: { light: ColorScheme; dark: ColorScheme } = {
     surface: p.neutral[900],
     surfaceMuted: p.neutral[850],
     surfaceRaised: '#232327',
+    surfaceHover: '#2e2e33',
     fg: p.neutral[25],
     fgMuted: '#a1a1aa',
     border: '#2a2a2e',
