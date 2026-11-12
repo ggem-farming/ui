@@ -1,6 +1,6 @@
 {
   "name": "@ggem/tokens",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "GGEM design tokens for web (Tailwind CSS v4 theme) and React Native",
   "license": "MIT",
   "type": "module",
