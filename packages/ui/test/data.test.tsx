@@ -189,9 +189,17 @@ describe('DataTable states', () => {
     expect(screen.queryByRole('table')).toBeNull();
 
     rerender(
-      <DataTable {...base} data={undefined} error="Couldn't load farmers" onRetry={onRetry} />
+      <DataTable
+        {...base}
+        data={undefined}
+        error="Check your connection and try again."
+        onRetry={onRetry}
+      />
     );
-    expect(screen.getByRole('alert')).toHaveTextContent("Couldn't load farmers");
+    const blocking = screen.getByRole('alert');
+    expect(blocking).toHaveTextContent("Couldn't load farmers");
+    // The reason appears once (no default description repeating it).
+    expect(blocking.textContent.match(/Check your connection/g)).toHaveLength(1);
     await userEvent.click(screen.getByRole('button', { name: 'Try again' }));
     expect(onRetry).toHaveBeenCalledOnce();
 
@@ -203,6 +211,7 @@ describe('DataTable states', () => {
         onRetry={onRetry}
       />
     );
+    expect(screen.getByRole('alert')).toHaveTextContent("Couldn't refresh farmers");
     expect(screen.getByRole('alert')).toHaveTextContent('Showing saved results');
     expect(bodyRows()).toHaveLength(3);
 

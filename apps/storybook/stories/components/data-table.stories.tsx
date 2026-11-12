@@ -370,7 +370,7 @@ function useFakeServer(pagination: PaginationState, sorting: SortingState, fail:
   useEffect(() => {
     const timer = setTimeout(() => {
       if (fail) {
-        setError("Couldn't load farmers");
+        setError('The server did not respond. Try again in a moment.');
       } else {
         const sort = sorting[0];
         const sorted = sort

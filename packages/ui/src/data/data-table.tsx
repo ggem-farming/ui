@@ -127,7 +127,10 @@ export interface DataTableProps<TData extends RowData> {
   loading?: boolean;
   /** Refetching with data shown: keeps rows and shows a progress line. */
   fetching?: boolean;
-  /** Load failure. With rows still shown it appears as a banner above them. */
+  /**
+   * Why the load failed, e.g. "Check your connection and try again." The table supplies the title
+   * ("Couldn't load farmers"). With rows still shown it appears as a banner above them.
+   */
   error?: ReactNode;
   onRetry?: () => void;
   /** Shown when there are no rows; say why and offer the next step. */
@@ -265,15 +268,20 @@ export function DataTable<TData extends RowData>({
       {error !== undefined && error !== null && error !== false && rows.length > 0 && (
         <ErrorState
           variant="banner"
-          title={error}
-          description={null}
+          title={`Couldn't refresh ${label.toLowerCase()}`}
+          description={error}
           onRetry={onRetry}
           className="m-3"
         />
       )}
 
       {showBlockingError ? (
-        <ErrorState title={error} onRetry={onRetry} className="flex-1" />
+        <ErrorState
+          title={`Couldn't load ${label.toLowerCase()}`}
+          description={error}
+          onRetry={onRetry}
+          className="flex-1"
+        />
       ) : showInitialLoading ? (
         <div role="status" aria-busy="true" className="flex flex-col gap-px border-t border-border">
           <span className="sr-only">Loading {label.toLowerCase()}…</span>
