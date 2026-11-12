@@ -115,3 +115,28 @@ export {
   type EmptyStateProps,
   type ErrorStateProps,
 } from './state/states.tsx';
+export {
+  AppShell,
+  PageBar,
+  Sidebar,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarLink,
+  SidebarNav,
+  SidebarSection,
+  type AppShellProps,
+  type PageBarProps,
+  type SidebarLinkProps,
+  type SidebarNavProps,
+  type SidebarSectionProps,
+} from './layout/app-shell.tsx';
+export { Page, PageHeader, type PageHeaderProps, type PageProps } from './layout/page.tsx';
+export {
+  DetailList,
+  RecordHeader,
+  RecordLayout,
+  type DetailItem,
+  type DetailListProps,
+  type RecordHeaderProps,
+  type RecordLayoutProps,
+} from './layout/record.tsx';

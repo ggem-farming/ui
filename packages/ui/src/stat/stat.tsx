@@ -4,19 +4,27 @@ import { cn } from '../lib/cn.ts';
 
 /**
  * A strip of key figures (at most 4 per view). Columns are divided by 1px lines at any width.
+ * Sizes itself from the space it is given, not the screen: two columns, then one row once there
+ * is room, so it fits a full-width dashboard, a record's main column or a phone.
  * Renders a description list; put only `Stat`s inside.
  */
 export const StatGroup = forwardRef<HTMLDListElement, HTMLAttributes<HTMLDListElement>>(
   function StatGroup({ className, ...props }, ref) {
     return (
-      <dl
-        ref={ref}
-        className={cn(
-          'grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border lg:grid-cols-4',
-          className
-        )}
-        {...props}
-      />
+      <div className="@container">
+        <dl
+          ref={ref}
+          className={cn(
+            'grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border',
+            // An odd last figure spans both columns instead of leaving an empty cell.
+            '[&>:last-child:nth-child(odd)]:col-span-2',
+            // With room, one row of equal columns, however many figures there are.
+            '@2xl:auto-cols-fr @2xl:grid-flow-col @2xl:grid-cols-none @2xl:[&>:last-child:nth-child(odd)]:col-span-1',
+            className
+          )}
+          {...props}
+        />
+      </div>
     );
   }
 );
@@ -49,11 +57,13 @@ export const Stat = forwardRef<HTMLDivElement, StatProps>(function Stat(
   return (
     <div
       ref={ref}
-      className={cn('flex flex-col bg-surface px-4 py-4 sm:px-5', className)}
+      className={cn('@container/stat flex flex-col bg-surface px-4 py-4', className)}
       {...props}
     >
       <dt className="text-sm text-fg-muted">{label}</dt>
-      <dd className="mt-1 text-xl font-medium tracking-tight tabular-nums sm:text-3xl">{value}</dd>
+      <dd className="mt-1 text-xl font-medium tracking-tight tabular-nums @min-[10rem]/stat:text-2xl @min-[15rem]/stat:text-3xl">
+        {value}
+      </dd>
       {(delta !== undefined || note !== undefined) && (
         <dd className="mt-2 flex flex-wrap items-center gap-1.5 text-xs text-fg-muted">
           {delta !== undefined && (
